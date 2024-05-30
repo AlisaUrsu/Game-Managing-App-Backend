@@ -31,7 +31,9 @@ app.use(session({
         mongoUrl: env.MONGO_CONNECTION_STRING,
     })
 }))
-
+app.get("/", (req, res) => {
+    res.send('hello world');
+})
 app.use("/api/games", gamesRoutes);
 app.use("/api/users", usersRoutes);
 app.use("/api/your-list", requiresAuth, gameListRoutes);
