@@ -3,9 +3,9 @@ import env from "./util/validateEnv";
 import app from "./app";
 import "dotenv/config";
 
-const port = process.env.PORT;
+const port = env.PORT || 5000;
 
-mongoose.connect(process.env.MONGO_CONNECTION_STRING!)
+mongoose.connect(env.MONGO_CONNECTION_STRING!)
     .then(() => {
         console.log("Mongoose connected.");
         app.listen(port, () => {
