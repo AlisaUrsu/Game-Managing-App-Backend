@@ -14,7 +14,7 @@ import { requiresAuth } from "./middleware/auth";
 
 const app = express();
 app.use(cors({
-    origin: "https://playmanager.onrender.com"
+    origin: "https://game-managing-app-backend.onrender.com"
 }));
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
