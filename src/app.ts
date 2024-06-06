@@ -13,7 +13,9 @@ import createHttpError, {isHttpError} from "http-errors";
 import { requiresAuth } from "./middleware/auth";
 
 const app = express();
-app.use(cors());
+app.use(cors({
+    origin: "https://playmanager.onrender.com"
+}));
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
