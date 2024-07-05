@@ -110,18 +110,7 @@ export class GameService {
     }
 
     public async getChartData(): Promise<{ [genre: string]: number }> {
-        const games = await this.getAllGames();
-        const genreFrequency: { [genre: string]: number } = {};
-    
-        validGenres.forEach(genre => {
-            genreFrequency[genre] = 0;
-        });
-    
-        games.forEach(game => {
-            game.genres.forEach(genre => { genreFrequency[genre]++; });
-        });
-    
-        return genreFrequency;
+        return await this.repository.getChartData();
     }
 
     public async countGames(query: any): Promise<number> {

@@ -69,6 +69,34 @@ export class GameRepository {
         return await this.gameModel.distinct('developer').exec();
     }
 
+    public async getChartData(): Promise<{ [genre: string]: number }> {
+        const genreFrequency: { [genre: string]: number } = {};
+        const aggregationPipeline = [
+            {
+                $group: {
+                    _id: '$genres',
+                    count: { $sum: 1 }
+                }
+            }
+        ];
+
+        const results = await this.gameModel.aggregate(aggregationPipeline);
+
+        results.forEach(result => {
+            const genres = result._id;
+            const count = result.count;
+
+            genres.forEach((genre: string | number) => {
+                if (!genreFrequency[genre]) {
+                    genreFrequency[genre] = 0;
+                }
+                genreFrequency[genre] += count;
+            });
+        });
+
+        return genreFrequency;
+    }
+
     async generateData(): Promise<any> {
         console.log("starting");
         await this.gameModel.deleteMany({});
